@@ -45,7 +45,7 @@ console.log('Расходы за месяц: ' + getExpensesMonth(amount1, amoun
 
 console.log(arrAddExpenses);
 
-console.log('Цель будет достигнута через ' + Math.ceil(mission / getExpensesMonth(amount1, amount2)) + ' месяцев(-а)');
+console.log('Цель будет достигнута через ' + Math.ceil(getTargetMonth(mission, accumulatedMonth)) + ' месяцев(-а)');
 
 budgetDay = accumulatedMonth / 30;
 console.log('Бюджет на день: ' + Math.floor(budgetDay));
