@@ -7,8 +7,6 @@ let deposit = confirm('Есть ли у вас депозит в банке?');
 let mission = 6000000;
 let period = 12;
 let budgetDay;
-let amount1;
-let amount2;
 
 let arrAddExpenses = addExpenses.toLowerCase().split(', ');
 
@@ -21,21 +19,6 @@ function start() {
 
 start();
 
-let expenses1 = prompt('Введите обязательную статью расходов?');
-
-do {
-  amount1 = prompt('Во сколько это обойдется?');
-}
-while (isNaN(parseFloat(amount1)));
-
-let expenses2 = prompt('Введите обязательную статью расходов?');
-
-do {
-  amount2 = prompt('Во сколько это обойдется?');
-}
-while (isNaN(parseFloat(amount2)));
-
-
 function showTypeOf(data) {
   console.log(typeof (data));
 }
@@ -44,24 +27,41 @@ showTypeOf(money);
 showTypeOf(income);
 showTypeOf(deposit);
 
-// сумма обязательных расходов
-function getExpensesMonth(amount1, amount2) {
-  return (+amount1) + (+amount2);
+function getExpensesMonth() {
+  let sum = 0;
+  let expenses = [];
+  let amounts = [];
+
+  for (let i = 0; i < 2; ++i) {
+    expenses[i] = prompt('Введите обязательную статью расходов?');
+    do {
+      amounts[i] = prompt('Во сколько это обойдется?');
+      console.log('amounts[i]: ', amounts[i]);
+    }
+    while (isNaN(parseFloat(amounts[i])));
+  }
+
+  for (let j = 0; j < amounts.length; ++j) {
+    sum += +amounts[j];
+  }
+
+  return sum;
 }
 
 // накопления за месяц (доходы минус расходы)
-function getAccumulatedMonth(money, amount1, amount2) {
-  return (+money) - ((+amount1) + (+amount2));
+function getAccumulatedMonth(money, getExpensesMonth) {
+  return (+money) - getExpensesMonth();
 }
 
-let accumulatedMonth = getAccumulatedMonth(money, amount1, amount2);
+let accumulatedMonth = getAccumulatedMonth(money, getExpensesMonth);
+console.log('accumulatedMonth: ', accumulatedMonth);
 
 // подсчитывает за какой период будет достигнута цель, зная результат месячного накопления
 function getTargetMonth(mission, accumulatedMonth) {
   return mission / accumulatedMonth;
 }
 
-console.log('Расходы за месяц: ' + getExpensesMonth(amount1, amount2));
+console.log('Расходы за месяц: ' + getExpensesMonth());
 
 console.log(arrAddExpenses);
 
