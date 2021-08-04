@@ -1,19 +1,39 @@
 'use strict';
 
-let money = prompt('Ваш месячный доход?');
+let money;
 let income = 'freilance';
 let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
 let deposit = confirm('Есть ли у вас депозит в банке?');
 let mission = 6000000;
 let period = 12;
-let budgetDay = money / 30;
+let budgetDay;
+let amount1;
+let amount2;
 
 let arrAddExpenses = addExpenses.toLowerCase().split(', ');
 
+function start() {
+  do {
+    money = prompt('Ваш месячный доход?');
+  }
+  while (isNaN(parseFloat(money)));
+}
+
+start();
+
 let expenses1 = prompt('Введите обязательную статью расходов?');
-let amount1 = prompt('Во сколько это обойдется?');
+
+do {
+  amount1 = prompt('Во сколько это обойдется?');
+}
+while (isNaN(parseFloat(amount1)));
+
 let expenses2 = prompt('Введите обязательную статью расходов?');
-let amount2 = prompt('Во сколько это обойдется?');
+
+do {
+  amount2 = prompt('Во сколько это обойдется?');
+}
+while (isNaN(parseFloat(amount2)));
 
 
 function showTypeOf(data) {
@@ -45,7 +65,11 @@ console.log('Расходы за месяц: ' + getExpensesMonth(amount1, amoun
 
 console.log(arrAddExpenses);
 
-console.log('Цель будет достигнута через ' + Math.ceil(getTargetMonth(mission, accumulatedMonth)) + ' месяцев(-а)');
+if (Math.ceil(getTargetMonth(mission, accumulatedMonth)) < 0) {
+  console.log('Цель не будет достигнута');
+} else {
+  console.log('Цель будет достигнута через ' + Math.ceil(getTargetMonth(mission, accumulatedMonth)) + ' месяцев(-а)');
+}
 
 budgetDay = accumulatedMonth / 30;
 console.log('Бюджет на день: ' + Math.floor(budgetDay));
@@ -65,5 +89,3 @@ function getStatusIncome() {
 }
 
 getStatusIncome();
-
-
