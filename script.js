@@ -53,14 +53,14 @@ let appData = {
   },
 
   // накопления за месяц (доходы минус расходы)
-  getBudget: function (money, getExpensesMonth) {
+  getBudget: function () {
     appData.budgetMonth = appData.budget - appData.getExpensesMonth();
     return appData.budgetMonth;
   },
 
   // за какой период будет достигнута цель, зная результат месячного накопления
-  getTargetMonth: function (mission, budgetMonth) {
-    return mission / appData.budgetMonth;
+  getTargetMonth: function () {
+    return appData.mission / appData.budgetMonth;
   },
 
   getStatusIncome: function () {
