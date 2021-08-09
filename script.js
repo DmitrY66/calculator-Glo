@@ -2,11 +2,15 @@
 
 let money;
 
+let isNumber = function (n) {
+  return isNaN(n) || n === '' || n === null;
+};
+
 function start() {
   do {
     money = prompt('Ваш месячный доход?', 50000);
   }
-  while (isNaN(parseFloat(money)));
+  while (isNumber(money));
 }
 
 start();
@@ -30,13 +34,14 @@ let appData = {
       do {
         itemIncome = prompt('Какой у Вас дополнительный заработок?', 'Таксую');
       }
-      while ((parseFloat(itemIncome)));
+      while (!isNumber(itemIncome));
 
       let cashIncome;
       do {
         cashIncome = prompt('Сколько в месяц Вы на этом имеете?', 10000);
       }
-      while (isNaN(parseFloat(cashIncome)));
+      while (isNumber(cashIncome));
+
       appData.income[itemIncome] = cashIncome;
     }
 
@@ -50,11 +55,11 @@ let appData = {
       do {
         expenses[i] = prompt('Введите обязательную статью расходов?');
       }
-      while ((parseFloat(expenses[i])));
+      while (!isNumber(expenses[i]));
       do {
         amounts[i] = prompt('Во сколько это обойдется?');
       }
-      while (isNaN(parseFloat(amounts[i])));
+      while (isNumber(amounts[i]));
       // console.log('статья расходов:', i + 1, amounts[i]);
       appData.expenses[expenses[i]] = +amounts[i];
     }
@@ -105,12 +110,12 @@ let appData = {
       do {
         appData.percentDeposit = prompt('Какой годовой процент?', '10');
       }
-      while (isNaN(parseFloat(appData.percentDeposit)));
+      while (isNumber(appData.percentDeposit));
 
       do {
         appData.moneyDeposit = prompt('Какая сумма заложена?', 10000);
       }
-      while (isNaN(parseFloat(appData.moneyDeposit)));
+      while (isNumber(appData.moneyDeposit));
     }
   },
 
