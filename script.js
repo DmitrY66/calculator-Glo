@@ -173,8 +173,7 @@ console.log(btnPlusIncomeAdd);
 let btnPlusExpensesAdd = document.getElementsByTagName('button')[1];
 console.log(btnPlusExpensesAdd);
 
-// let cbDepositCheck = document.querySelector('#deposit-check');
-let cbDepositCheck = document.getElementById('deposit-check');
+let cbDepositCheck = document.querySelector('#deposit-check');
 console.log(cbDepositCheck);
 
 let additionalIncomeItem = document.querySelectorAll('.additional_income-item');
