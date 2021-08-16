@@ -107,7 +107,6 @@ AppData.prototype.start = function () {
 
 // вывод результатов в правую колонку
 AppData.prototype.showResult = function () {
-  const _this = this;
   // дневной бюджет
   budgetMonthValue.value = this.budgetMonth;
   // расход за месяц
@@ -123,9 +122,7 @@ AppData.prototype.showResult = function () {
   // накопления за период
   incomePeriodValue.value = this.calcSaveMoney();
   // динамическое изменение накоплений за период
-  periodSelect.addEventListener('input', function () {
-    incomePeriodValue.value = _this.calcSaveMoney();
-  });
+  periodSelect.addEventListener('input', this.periodSaveMoney.bind(this));
 };
 
 // добавляем поля по клику на "+"
@@ -258,6 +255,11 @@ AppData.prototype.calcSaveMoney = function () {
   return this.budgetMonth * periodSelect.value;
 };
 
+// динамическое изменение накоплений
+AppData.prototype.periodSaveMoney = function () {
+  incomePeriodValue.value = this.calcSaveMoney();
+};
+
 // сброс значений
 AppData.prototype.reset = function () {
 
@@ -318,7 +320,6 @@ AppData.prototype.changeButtonReset = function () {
 
 
 AppData.prototype.eventList = function () {
-  // const _this = this;
 
   this.periodAccumulate();
 
