@@ -336,26 +336,3 @@ AppData.prototype.eventList = function () {
 const appData = new AppData();
 
 appData.eventList();
-
-
-
-
-// appData.reset();
-// appData.inputBlocking();
-// appData.changeButton();
-
-// if (Math.ceil(appData.getTargetMonth(appData.mission, appData.budgetMonth)) < 0) {
-//   console.log('Цель не будет достигнута');
-// } else {
-//   console.log('Цель будет достигнута через ' +
-//     Math.ceil(appData.getTargetMonth(appData.mission, appData.budgetMonth)) +
-//     ' месяцев(-а)');
-// }
-
-// appData.getStatusIncome();
-
-
-// console.log("Наша программа включает в себя данные: ");
-// for (let key in appData) {
-//   console.log(appData[key]);
-// }
