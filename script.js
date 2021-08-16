@@ -54,13 +54,6 @@ let isNumber = function (n) {
 };
 
 
-// ползунок. динамич. изменение значения
-periodAmount.textContent = periodSelect.value;
-periodSelect.addEventListener('input', function () {
-  periodAmount.textContent = periodSelect.value;
-});
-
-
 // система
 let appData = {
   budget: 0,
@@ -75,6 +68,14 @@ let appData = {
   deposit: false,
   percentDeposit: 0,
   moneyDeposit: 0,
+
+  // ползунок. динамич. изменение значения
+  periodAccumulate: function () {
+    periodAmount.textContent = periodSelect.value;
+    periodSelect.addEventListener('input', function () {
+      periodAmount.textContent = periodSelect.value;
+    });
+  },
 
   // запускаем при нажатии кнопки "расчитать"
   start: function () {
@@ -255,6 +256,11 @@ let appData = {
 
   // сброс значений
   reset: function () {
+
+    let allInputs = document.querySelectorAll('input');
+    let incomeItems = document.querySelectorAll('.income-items');
+    let expensesItems = document.querySelectorAll('.expenses-items');
+
     allInputs.forEach(function (item) {
       item.value = '';
     });
@@ -317,6 +323,8 @@ let appData = {
 
 // =========================================================
 
+appData.periodAccumulate();
+
 btnStart.addEventListener('click', appData.start.bind(appData));
 
 btnCancel.addEventListener('click', function () {
@@ -327,6 +335,7 @@ btnCancel.addEventListener('click', function () {
 btnPlusExpensesAdd.addEventListener('click', appData.addExpensesBlock.bind(appData));
 
 btnPlusIncomeAdd.addEventListener('click', appData.addIncomeBlock.bind(appData));
+
 
 // appData.reset();
 // appData.inputBlocking();
