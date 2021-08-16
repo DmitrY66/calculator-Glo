@@ -54,13 +54,6 @@ let isNumber = function (n) {
 };
 
 
-// ползунок. динамич. изменение значения
-periodAmount.textContent = periodSelect.value;
-periodSelect.addEventListener('input', function () {
-  periodAmount.textContent = periodSelect.value;
-});
-
-
 // система
 const AppData = function () {
 
@@ -77,6 +70,14 @@ const AppData = function () {
   this.percentDeposit = 0;
   this.moneyDeposit = 0;
 
+};
+
+// ползунок. динамич. изменение значения
+AppData.prototype.periodAccumulate = function () {
+  periodAmount.textContent = periodSelect.value;
+  periodSelect.addEventListener('input', function () {
+    periodAmount.textContent = periodSelect.value;
+  });
 };
 
 // запускаем при нажатии кнопки "расчитать"
@@ -263,6 +264,11 @@ AppData.prototype.calcSaveMoney = function () {
 
 // сброс значений
 AppData.prototype.reset = function () {
+
+  let allInputs = document.querySelectorAll('input');
+  let incomeItems = document.querySelectorAll('.income-items');
+  let expensesItems = document.querySelectorAll('.expenses-items');
+
   allInputs.forEach(function (item) {
     item.value = '';
   });
@@ -328,6 +334,9 @@ AppData.prototype.changeButtonReset = function () {
 
 AppData.prototype.eventList = function () {
   const _this = this;
+
+  _this.periodAccumulate();
+
   btnStart.addEventListener('click', _this.start.bind(_this));
 
   btnCancel.addEventListener('click', function () {
@@ -341,7 +350,6 @@ AppData.prototype.eventList = function () {
 };
 
 const appData = new AppData();
-console.log(appData);
 
 appData.eventList();
 
