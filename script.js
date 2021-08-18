@@ -67,15 +67,15 @@ class AppData {
   }
 
   // ползунок. динамич. изменение значения
-  periodAccumulate () {
+  periodAccumulate() {
     periodAmount.textContent = periodSelect.value;
-    periodSelect.addEventListener('input', function () {
+    periodSelect.addEventListener('input', () => {
       periodAmount.textContent = periodSelect.value;
     });
   }
 
   // запускаем при нажатии кнопки "расчитать"
-  start () {
+  start() {
     if (salaryAmount.value === '') {
       salaryAmount.placeholder = 'Данное поле необходимо заполнить!';
     } else {
@@ -100,7 +100,7 @@ class AppData {
   }
 
   // вывод результатов в правую колонку
-  showResult () {
+  showResult() {
     // дневной бюджет
     budgetMonthValue.value = this.budgetMonth;
     // расход за месяц
@@ -120,7 +120,7 @@ class AppData {
   }
 
   // добавляем поля по клику на "+"
-  addExpensesBlock () {
+  addExpensesBlock() {
     const cloneExpensesItem = expensesItems[0].cloneNode(true);
     expensesItems[0].parentNode.insertBefore(cloneExpensesItem, btnPlusExpensesAdd);
     expensesItems = document.querySelectorAll('.expenses-items');
@@ -130,7 +130,7 @@ class AppData {
   }
 
   // добавляем поля по клику на "+"
-  addIncomeBlock () {
+  addIncomeBlock() {
     const cloneIncomeItem = incomeItems[0].cloneNode(true);
     incomeItems[0].parentNode.insertBefore(cloneIncomeItem, btnPlusIncomeAdd);
     incomeItems = document.querySelectorAll('.income-items');
@@ -140,8 +140,8 @@ class AppData {
   }
 
   // обязательные расходы
-  getExpenses () {
-    expensesItems.forEach(function (item) {
+  getExpenses() {
+    expensesItems.forEach((item) => {
       const itemExpenses = item.querySelector('.expenses-title').value;
       const cashExpenses = item.querySelector('.expenses-amount').value;
       if (itemExpenses !== '' && cashExpenses !== '') {
@@ -151,8 +151,8 @@ class AppData {
   }
 
   // дополнительный доход
-  getIncome () {
-    incomeItems.forEach(function (item) {
+  getIncome() {
+    incomeItems.forEach((item) => {
       const itemIncome = item.querySelector('.income-title').value;
       const cashIncome = item.querySelector('.income-amount').value;
       if (itemIncome !== '' && cashIncome !== '') {
@@ -164,7 +164,7 @@ class AppData {
   // возможные расходы
   getAddExpenses() {
     let addExpenses = additionalExpensesItem.value.split(',');
-    addExpenses.forEach(function (item) {
+    addExpenses.forEach((item) => {
       item = item.trim();
       if (item !== '') {
         this.addExpenses.push(item);
@@ -173,8 +173,8 @@ class AppData {
   }
 
   // дополнительный доход
-  getAddIncome () {
-    additionalIncomeItem.forEach(function (item) {
+  getAddIncome() {
+    additionalIncomeItem.forEach((item) => {
       let itemValue = item.value.trim();
       if (itemValue !== '') {
         this.addIncome.push(itemValue);
@@ -183,7 +183,7 @@ class AppData {
   }
 
   // сумма всех обязательных расходов
-  getExpensesMonth () {
+  getExpensesMonth() {
     for (let key in this.expenses) {
       this.expensesMonth += +this.expenses[key];
     }
@@ -191,7 +191,7 @@ class AppData {
   }
 
   // сумма всех дополнительных доходов
-  getIncumeMonth () {
+  getIncumeMonth() {
     for (let key in this.income) {
       this.incomeMonth += +this.income[key];
     }
@@ -199,23 +199,23 @@ class AppData {
   }
 
   // доход за месяц (доходы минус расходы)
-  getBudgetMonth () {
+  getBudgetMonth() {
     this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
     return this.budgetMonth;
   }
 
   // дневной бюджет
-  getBudgetDay () {
+  getBudgetDay() {
     this.budgetDay = Math.floor(this.budgetMonth / 30);
     return this.budgetDay;
   }
 
   // срок достижения цели в месяцах
-  getTargetMonth () {
+  getTargetMonth() {
     return targetAmount.value / this.budgetMonth;
   }
 
-  getStatusIncome () {
+  getStatusIncome() {
     if (this.budgetDay >= 1200) {
       console.log('У Вас высокий уровень дохода');
     } else if (this.budgetDay < 1200 && this.budgetDay >= 600) {
@@ -229,13 +229,13 @@ class AppData {
     }
   }
 
-// проверка ввода на число
-  isNumber (n) {
+  // проверка ввода на число
+  isNumber(n) {
     return isNaN(n) || n === '' || n === null;
   }
 
-// депозит
-  getInfoDeposit () {
+  // депозит
+  getInfoDeposit() {
     this.deposit = confirm('Есть ли у вас депозит в банке?');
     if (this.deposit) {
       do {
@@ -251,23 +251,23 @@ class AppData {
   }
 
   // накопления за период
-  calcSaveMoney () {
+  calcSaveMoney() {
     return this.budgetMonth * periodSelect.value;
   }
 
   // динамическое изменение накоплений
-  periodSaveMoney () {
+  periodSaveMoney() {
     incomePeriodValue.value = this.calcSaveMoney();
   }
 
   // сброс значений
-  reset () {
+  reset() {
 
     const allInputs = document.querySelectorAll('input');
     const incomeItems = document.querySelectorAll('.income-items');
     const expensesItems = document.querySelectorAll('.expenses-items');
 
-    allInputs.forEach(function (item) {
+    allInputs.forEach((item) => {
       item.value = '';
     });
 
@@ -285,39 +285,44 @@ class AppData {
       }
     }
 
+    btnPlusIncomeAdd.disabled = false;
+    btnPlusExpensesAdd.disabled = false;
+
     periodSelect.value = 1;
     periodAmount.textContent = 1;
 
     Object.assign(this, new this.constructor());
 
     // разблокируем поля слева
-    allInputs.forEach(function (item) {
+    allInputs.forEach((item) => {
       item.removeAttribute("readonly");
     });
   }
 
   // блокировка полей ввода
-  inputBlocking () {
+  inputBlocking() {
     const allInputs = document.querySelectorAll('input');
-    allInputs.forEach(function (item) {
+    allInputs.forEach((item) => {
       item.setAttribute("readonly", "readonly");
     });
+    btnPlusIncomeAdd.disabled = true;
+    btnPlusExpensesAdd.disabled = true;
   }
 
   // смена кнопки "расчитать"
-  changeButtonСalculate () {
+  changeButtonСalculate() {
     btnStart.style.display = 'none';
     btnCancel.style.display = 'block';
   }
 
   // смена кнопки "сбросить"
-  changeButtonReset () {
+  changeButtonReset() {
     btnCancel.style.display = 'none';
     btnStart.style.display = 'block';
   }
 
   // слушатели событий
-  eventList () {
+  eventList() {
 
     this.periodAccumulate();
 
