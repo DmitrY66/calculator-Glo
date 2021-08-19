@@ -86,8 +86,9 @@ class AppData {
     } else if (cbDepositCheck.checked === true) {
       if (this.isNumber(depositPercent.value) ||
         depositPercent.value <= 0 ||
-        depositPercent.value > 100) {
-        alert('Введите корректное значение в поле проценты');
+        depositPercent.value > 100 ||
+        this.isNumber(depositAmount.value)) {
+        alert('Введите корректное значение в поле "проценты" и поле "сумма"');
       } else {
         salaryAmount.placeholder = 'Сумма';
 
@@ -303,6 +304,8 @@ class AppData {
 
     btnPlusIncomeAdd.disabled = false;
     btnPlusExpensesAdd.disabled = false;
+    cbDepositCheck.disabled = false;
+    depositBank.disabled = false;
 
     periodSelect.value = 1;
     periodAmount.textContent = 1;
@@ -330,6 +333,8 @@ class AppData {
     });
     btnPlusIncomeAdd.disabled = true;
     btnPlusExpensesAdd.disabled = true;
+    cbDepositCheck.disabled = true;
+    depositBank.disabled = true;
   }
 
   // смена кнопки "расчитать"
